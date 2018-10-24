@@ -6,6 +6,7 @@ import { Graficas1Component } from './graficas1/graficas1.component';
 
 //Modulos
 import { SharedModule } from '../shared/shared.module';
+import { PAGES_ROUTES } from './pages.routes';
 
 @NgModule({
     declarations: [
@@ -20,7 +21,8 @@ import { SharedModule } from '../shared/shared.module';
         Graficas1Component,
     ],
     imports: [
-        SharedModule
+        SharedModule,
+        PAGES_ROUTES
     ]
 })
 
