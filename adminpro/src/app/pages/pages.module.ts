@@ -7,6 +7,8 @@ import { Graficas1Component } from './graficas1/graficas1.component';
 //Modulos
 import { SharedModule } from '../shared/shared.module';
 import { PAGES_ROUTES } from './pages.routes';
+import { FormsModule } from '@angular/forms';
+import { IncrementadorComponent } from '../components/incrementador/incrementador.component';
 
 @NgModule({
     declarations: [
@@ -14,6 +16,7 @@ import { PAGES_ROUTES } from './pages.routes';
         DashboardComponent,
         ProgressComponent,
         Graficas1Component,
+        IncrementadorComponent
     ],
     exports: [
         DashboardComponent,
@@ -22,7 +25,8 @@ import { PAGES_ROUTES } from './pages.routes';
     ],
     imports: [
         SharedModule,
-        PAGES_ROUTES
+        PAGES_ROUTES,
+        FormsModule
     ]
 })
 
