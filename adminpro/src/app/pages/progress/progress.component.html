@@ -22,14 +22,14 @@
             <div class="card-body">
                 <!-- sin los [] para directo el valor como cadena  -->
                 <!-- con el [] se tiene que pasar una variable que debe estar en el ts del componenete -->
-                <app-incrementador nombre="Progress Azul" [progreso]="progreso1"></app-incrementador>
+                <app-incrementador (changeValue)="progreso1 = $event" nombre="Progress Azul" [progreso]="progreso1"></app-incrementador>
             </div>
         </div>
     </div>
     <div class="col-6">
         <div class="card">
             <div class="card-body">
-                <app-incrementador nombre="Progress Verde" [progreso]="progreso2"></app-incrementador>
+                <app-incrementador (changeValue)="progreso2 = $event" nombre="Progress Verde" [progreso]="progreso2"></app-incrementador>
             </div>
         </div>
     </div>

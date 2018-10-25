@@ -4,7 +4,6 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-progress',
   templateUrl: './progress.component.html',
   styles: [],
-  
 })
 export class ProgressComponent implements OnInit {
 
@@ -16,5 +15,9 @@ export class ProgressComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  // actualizar( event: number ) {
+  //   this.progreso1 = event;
+  // }
 
 }
