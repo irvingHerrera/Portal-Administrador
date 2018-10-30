@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { inject } from '@angular/core/testing';
 import { DOCUMENT } from '@angular/platform-browser';
 import { element } from 'protractor';
-import { SettingsService } from 'src/app/services/settings.service';
+import { SettingsService } from 'src/app/services/service.index';
 
 @Component({
   selector: 'app-accout-settings',
@@ -15,6 +15,7 @@ export class AccoutSettingsComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.colocarCheck();
   }
 
 
@@ -31,6 +32,19 @@ export class AccoutSettingsComponent implements OnInit {
     }
 
     link.classList.add('working');
+
+  }
+
+  colocarCheck() {
+    let selectores: any = document.getElementsByClassName('selector');
+    let tema = this._ajustes.ajustes.tema;
+    console.log(tema);
+    for ( let elemento of selectores) {
+      if ( elemento.getAttribute('data-theme') === tema) {
+        elemento.classList.add('working');
+        break;
+      }
+    }
 
   }
 
