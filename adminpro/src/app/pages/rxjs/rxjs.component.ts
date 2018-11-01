@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { retry } from 'rxjs/operators';
+import { Observable, Subscriber } from 'rxjs';
+import { retry, map } from 'rxjs/operators';
 
 
 @Component({
@@ -10,31 +10,9 @@ import { retry } from 'rxjs/operators';
 })
 export class RxjsComponent implements OnInit {
 
-  constructor() { 
-
-    let obs = new Observable( observer => {
-
-      let contador = 0;
-
-      const intervalo = setInterval( () => {
-        contador += 1;
-        observer.next(contador);
-
-        if ( contador === 3 ){
-          clearInterval(intervalo);
-          observer.complete();
-        }
-
-        if ( contador === 2) {
-          //clearInterval(intervalo);
-          observer.error('Error');
-        }
-
-      }, 1000);
-
-    } );
-
-    obs.pipe( retry(2) )
+  constructor() {
+    this.regresaObservable()
+    // .pipe( retry(2) )
     .subscribe( numero => {
         console.log('Subs', numero);
       },
@@ -45,6 +23,40 @@ export class RxjsComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  regresaObservable(): Observable<any> {
+    return new Observable( (observer: Subscriber<any>) => {
+
+      let contador = 0;
+
+      const intervalo = setInterval( () => {
+        contador += 1;
+
+        const salida = {
+          valor: contador
+        };
+
+        observer.next(salida);
+
+        if ( contador === 3 ) {
+          clearInterval(intervalo);
+          observer.complete();
+        }
+
+        /*if ( contador === 2) {
+          //clearInterval(intervalo);
+          observer.error('Error');
+        }*/
+
+      }, 1000);
+
+    } ).pipe(
+      map( res => {
+          return res.valor;
+      })
+    );
+
   }
 
 }
