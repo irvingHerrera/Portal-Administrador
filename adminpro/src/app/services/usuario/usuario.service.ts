@@ -15,12 +15,34 @@ export class UsuarioService {
     console.log('Servicio de usuario listo');
   }
 
+  login(usuario: Usuario, recordar: boolean) {
+    
+    console.log("recordar", recordar);
+    if ( recordar ) {
+      localStorage.setItem('email', usuario.email);
+    } else {
+      localStorage.removeItem('email');
+    }
+
+    const url = URL_SERVICIOS + '/login';
+    
+    return this.http.post(url, usuario)
+    .pipe(map ( (resp: any) => {
+      console.log("resp", resp);
+      localStorage.setItem('id', resp.usuario._id);
+      localStorage.setItem('token', resp.token);
+      localStorage.setItem('usuario', JSON.stringify(resp.usuario));
+
+      return true;
+    }));
+  }
+
   crearUsuario(usuario: Usuario) {
-    let url = URL_SERVICIOS + '/usuario';
+    const url = URL_SERVICIOS + '/usuario';
     return this.http.post(url, usuario)
     .pipe(map((res: any) => {
       swal('Correo Creado', usuario.email, 'success');
       return res.usuario;
-    }); 
+    }));
   }
 }
