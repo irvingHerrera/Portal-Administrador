@@ -15,6 +15,17 @@ export class UsuarioService {
     console.log('Servicio de usuario listo');
   }
 
+  guardarStorage( id: string, token: string, usuario: Usuario ) {
+
+  }
+
+  loginGoogle( token: string ) {
+    const url = URL_SERVICIOS + '/login/google';
+  
+    return this.http.post( url, {token} );
+
+  }
+
   login(usuario: Usuario, recordar: boolean) {
     
     console.log("recordar", recordar);
