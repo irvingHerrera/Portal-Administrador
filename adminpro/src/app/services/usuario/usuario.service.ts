@@ -11,18 +11,32 @@ import { filter, map } from 'rxjs/operators';
 })
 export class UsuarioService {
 
+  usuario: Usuario;
+  token: string;
+
   constructor(public http: HttpClient) {
     console.log('Servicio de usuario listo');
   }
 
   guardarStorage( id: string, token: string, usuario: Usuario ) {
 
+      localStorage.setItem('id', id);
+      localStorage.setItem('token', token);
+      localStorage.setItem('usuario', JSON.stringify(usuario));
+
+      this.usuario = usuario;
+      this.token = token;
   }
 
   loginGoogle( token: string ) {
     const url = URL_SERVICIOS + '/login/google';
   
-    return this.http.post( url, {token} );
+    return this.http.post( url, {token} )
+    .pipe(map( (resp: any) => {
+
+      this.guardarStorage(resp.usuario._id, resp.token, resp.usuario);
+      return true;
+    }));
 
   }
 
@@ -39,10 +53,12 @@ export class UsuarioService {
     
     return this.http.post(url, usuario)
     .pipe(map ( (resp: any) => {
-      console.log("resp", resp);
-      localStorage.setItem('id', resp.usuario._id);
+      console.log('resp', resp);
+      /*localStorage.setItem('id', resp.usuario._id);
       localStorage.setItem('token', resp.token);
-      localStorage.setItem('usuario', JSON.stringify(resp.usuario));
+      localStorage.setItem('usuario', JSON.stringify(resp.usuario));*/
+
+      this.guardarStorage(resp.usuario._id, resp.token, resp.usuario);
 
       return true;
     }));

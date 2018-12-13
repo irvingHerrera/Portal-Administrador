@@ -51,8 +51,9 @@ export class LoginComponent implements OnInit {
     this.auth2.attachClickHandler( element, {}, googleUser => {
       const token = googleUser.getAuthResponse().id_token;
       this._usuarioService.loginGoogle( token )
-      .subscribe( resp => {
-        console.log(resp);
+      .subscribe( () => {
+        //this.router.navigate(['/dashboard']);
+        window.location.href = '#/dashboard';
       });
     });
   }
