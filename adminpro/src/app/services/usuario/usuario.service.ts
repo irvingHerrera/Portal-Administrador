@@ -12,10 +12,24 @@ import { filter, map } from 'rxjs/operators';
 export class UsuarioService {
 
   usuario: Usuario;
-  token: string;
+  token: string = '';
 
   constructor(public http: HttpClient) {
-    console.log('Servicio de usuario listo');
+    this.cargarStorage();
+  }
+
+  cargarStorage() {
+    if ( localStorage.getItem('token') ){
+      this.token = localStorage.getItem('token');
+      this.usuario = JSON.parse( localStorage.getItem('usuario') );
+    } else {
+      this.token = '';
+      this.usuario = null;
+    }
+  }
+
+  estaLogueado() {
+   return ( this.token.length > 5 ? true : false );
   }
 
   guardarStorage( id: string, token: string, usuario: Usuario ) {
