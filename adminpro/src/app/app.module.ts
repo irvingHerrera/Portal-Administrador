@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 //Rutas
 import { APP_ROUTES } from './app.routes';
 
-//modulos
+// modulos
 import { PagesModule } from './pages/pages.module';
 
 import { AppComponent } from './app.component';
@@ -13,7 +13,7 @@ import { RegisterComponent } from './login/register.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-//servicios
+// servicios
 import { ServiceModule } from './services/service.module';
 
 @NgModule({
