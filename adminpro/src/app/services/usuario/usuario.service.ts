@@ -100,4 +100,14 @@ export class UsuarioService {
       return res.usuario;
     }));
   }
+
+  actualizarUsuario( usuario: Usuario ) {
+    let url = URL_SERVICIOS + '/usuario/' + usuario._id;
+    url += '?token=' + this.token;
+
+    console.log(url);
+
+    return this.http.put( url, usuario);
+  }
+
 }
