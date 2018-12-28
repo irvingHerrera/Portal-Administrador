@@ -6,6 +6,7 @@ import { URL_SERVICIOS } from '../../config/config';
 
 import { filter, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import swal from 'sweetalert';
 
 @Injectable({
   providedIn: 'root'
@@ -105,9 +106,14 @@ export class UsuarioService {
     let url = URL_SERVICIOS + '/usuario/' + usuario._id;
     url += '?token=' + this.token;
 
-    console.log(url);
+    return this.http.put( url, usuario)
+    .pipe(map((res: any) => {
+      const usuarioDB: Usuario = res.usuario;
+      this.guardarStorage(usuarioDB._id, this.token, usuarioDB);
 
-    return this.http.put( url, usuario);
+      swal( 'Usuario actualizado', usuario.nombre, 'success' );
+      return true;
+    }));
   }
 
 }
