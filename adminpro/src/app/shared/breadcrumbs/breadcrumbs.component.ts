@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { Router, ActivationEnd } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
 import { Title, Meta, MetaDefinition } from '@angular/platform-browser';
@@ -10,20 +10,24 @@ import { Title, Meta, MetaDefinition } from '@angular/platform-browser';
 })
 export class BreadcrumbsComponent implements OnInit {
 
-  titulo: string;
+  public titulo: string;
 
   constructor( private router: Router,
                private title: Title,
-               private meta: Meta) {
+               private meta: Meta,
+               private ngZone: NgZone) {
     this.getDataRoute().subscribe( data => {
+      console.log(data, 'bread');
+      console.log(data.titulo, 'bread2');
       this.titulo = data.titulo;
       this.title.setTitle(this.titulo);
-      const metaTag: MetaDefinition = {
+      /*let metaTag: MetaDefinition = {
         name: 'Descripcion',
-        content: this.titulo };
-
-        this.meta.updateTag(metaTag);
-    } );
+        content: this.titulo
+      };
+      this.meta.updateTag(metaTag);*/
+    }
+    );
   }
 
   ngOnInit() {
