@@ -18,6 +18,7 @@ import { AccoutSettingsComponent } from './accout-settings/accout-settings.compo
 import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { ProfileComponent } from './profile/profile.component';
+import { CommonModule } from '@angular/common';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { ProfileComponent } from './profile/profile.component';
         Graficas1Component,
     ],
     imports: [
+        CommonModule,
         SharedModule,
         PAGES_ROUTES,
         FormsModule,
