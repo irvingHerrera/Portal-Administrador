@@ -36,12 +36,12 @@
 
                 <img src="">
 
-                <input type="file">
+                <input (change)="seleccionImagen( $event.target.files[0] )" type="file">
 
                 <br>
                 <br>
 
-                <button type="button" class="btn btn-success btn-block waves-effect waves-light m-r-10">
+                <button (click)="cambiarImagen()" [disabled]="!imagenSubir" type="button" class="btn btn-success btn-block waves-effect waves-light m-r-10">
                     <i class="fa fa-save"></i>
                     Actualizar Foto
                 </button>

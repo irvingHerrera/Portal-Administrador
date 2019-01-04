@@ -9,13 +9,13 @@ export class SubirArchivoService {
   constructor() { }
 
   subirArchivo( archivo: File, tipo: string, id: string) {
-
+console.log(archivo);
     return new Promise( (resolve, reject) => {
 
       const formData = new FormData();
       const xhr = new XMLHttpRequest();
 
-      formData.append('imagen', archivo.name);
+      formData.append('imagen', archivo, archivo.name);
 
       xhr.onreadystatechange = function () {
 
@@ -23,7 +23,7 @@ export class SubirArchivoService {
           if ( xhr.status === 200 ) {
               console.log('imagen subida');
 
-              resolve( xhr.response );
+              resolve( JSON.parse(xhr.response) );
 
           } else {
             console.log('Fallo la subiada');
@@ -33,7 +33,7 @@ export class SubirArchivoService {
     };
 
     const url = URL_SERVICIOS + '/upload/' + tipo + '/' + id;
-
+console.log(url);
     xhr.open( 'PUT', url, true );
 
     xhr.send( formData );
