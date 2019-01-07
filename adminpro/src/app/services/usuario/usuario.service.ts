@@ -26,7 +26,7 @@ export class UsuarioService {
   }
 
   cargarStorage() {
-    if ( localStorage.getItem('token') ){
+    if ( localStorage.getItem('token') ) {
       this.token = localStorage.getItem('token');
       this.usuario = JSON.parse( localStorage.getItem('usuario') );
     } else {
@@ -61,7 +61,6 @@ export class UsuarioService {
 
   loginGoogle( token: string ) {
     const url = URL_SERVICIOS + '/login/google';
-  
     return this.http.post( url, {token} )
     .pipe(map( (resp: any) => {
 
@@ -72,8 +71,6 @@ export class UsuarioService {
   }
 
   login(usuario: Usuario, recordar: boolean) {
-    
-    console.log("recordar", recordar);
     if ( recordar ) {
       localStorage.setItem('email', usuario.email);
     } else {
@@ -81,7 +78,7 @@ export class UsuarioService {
     }
 
     const url = URL_SERVICIOS + '/login';
-    
+
     return this.http.post(url, usuario)
     .pipe(map ( (resp: any) => {
       console.log('resp', resp);
