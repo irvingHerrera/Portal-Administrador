@@ -107,9 +107,11 @@ export class UsuarioService {
 
     return this.http.put( url, usuario)
     .pipe(map((res: any) => {
-      const usuarioDB: Usuario = res.usuario;
-      this.guardarStorage(usuarioDB._id, this.token, usuarioDB);
 
+      if ( usuario._id === this.usuario._id ) {
+        const usuarioDB: Usuario = res.usuario;
+        this.guardarStorage(usuarioDB._id, this.token, usuarioDB);
+      }
       swal( 'Usuario actualizado', usuario.nombre, 'success' );
       return true;
     }));
@@ -141,6 +143,15 @@ export class UsuarioService {
     return this.http.get( url )
     .pipe( map( (resp: any) => resp.usuarios ));
 
+  }
+
+  borrarUsuario( id: string ) {
+    const url = URL_SERVICIOS + '/usuario/' + id + '?token=' + this.token;
+    return this.http.delete(url)
+    .pipe(map (resp => {
+      swal('Usuario borrado', 'El usuario a sido eliminado correctamente', 'success');
+      return true;
+    }));
   }
 
 }

@@ -15,12 +15,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // servicios
 import { ServiceModule } from './services/service.module';
+import { ModalUploadComponent } from './components/modal-upload/modal-upload.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    ModalUploadComponent
   ],
   imports: [
     BrowserModule,
