@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ModalUploadComponent implements OnInit {
 
+  oculto: string = '';
+
   constructor() { }
 
   ngOnInit() {
