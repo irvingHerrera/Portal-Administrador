@@ -9,7 +9,6 @@ import { ModalUploadService } from './modal-upload.service';
 })
 export class ModalUploadComponent implements OnInit {
 
-  oculto: string = '';
   imagenSubir: File;
   imagenTemp: string;
 
@@ -44,7 +43,23 @@ export class ModalUploadComponent implements OnInit {
   }
 
   subirImagen() {
+    this._subirArchivoService.subirArchivo(this.imagenSubir, this._modalUploadService.tipo, this._modalUploadService.id)
+    .then( resp => {
 
+      this._modalUploadService.notificacion.emit( resp );
+      this.cerrarModal();
+
+    })
+    .catch( err => {
+      console.log('Error en la carga...');
+    });
+
+  }
+
+  cerrarModal() {
+    this.imagenSubir = null;
+    this.imagenTemp = null;
+    this._modalUploadService.ocultarModal();
   }
 
 }

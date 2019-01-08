@@ -1,10 +1,10 @@
-<div class="fondo-negro animated fadeIn" [ngClass]="oculto">
+<div class="fondo-negro animated fadeIn" [ngClass]="_modalUploadService.oculto">
     <div class="modal" style="display: block" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Modal title</h5>
-                    <button (click)="oculto='oculto'" type="button" class="close" aria-label="Close">
+                    <button (click)="cerrarModal()" type="button" class="close" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
                 </div>
@@ -17,8 +17,8 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button (click)="subirImagen()" [disabled]="!imagenTemp" type="button" class="btn btn-secondary" (click)="oculto='oculto'">Cerrar</button>
-                    <button type="button" class="btn btn-primary">Subir imagen</button>
+                    <button (click)="cerrarModal()" type="button" class="btn btn-secondary">Cerrar</button>
+                    <button (click)="subirImagen()" [disabled]="!imagenTemp" type="button" class="btn btn-primary">Subir imagen</button>
                 </div>
             </div>
         </div>
