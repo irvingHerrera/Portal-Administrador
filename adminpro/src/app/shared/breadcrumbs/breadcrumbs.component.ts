@@ -17,8 +17,6 @@ export class BreadcrumbsComponent implements OnInit {
                private meta: Meta,
                private ngZone: NgZone) {
     this.getDataRoute().subscribe( data => {
-      console.log(data, 'bread');
-      console.log(data.titulo, 'bread2');
       this.titulo = data.titulo;
       this.title.setTitle(this.titulo);
       /*let metaTag: MetaDefinition = {

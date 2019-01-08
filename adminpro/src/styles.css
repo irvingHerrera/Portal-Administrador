@@ -31,3 +31,11 @@
 .oculto {
     display: none;
 }
+
+.display-inline {
+    display: inline;
+}
+
+.b-r {
+    border-radius: 20px;
+}
