@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-//Rutas
+// Rutas
 import { APP_ROUTES } from './app.routes';
 
 // modulos
@@ -20,7 +20,7 @@ import { ServiceModule } from './services/service.module';
   declarations: [
     AppComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
