@@ -18,7 +18,6 @@ export class HospitalService {
 
   constructor(
     public http: HttpClient,
-    public _usuarioService: UsuarioService
   ) {
     this.cargarStorage();
   }
@@ -49,7 +48,7 @@ export class HospitalService {
   }
 
   borrarHospital( id: string ) {
-    const url = URL_SERVICIOS + '/hospital/' + id + '?token=' + this._usuarioService.token;
+    const url = URL_SERVICIOS + '/hospital/' + id + '?token=' + this.token;
     return this.http.delete(url)
     .pipe(map (resp => {
       swal('Hospital borrado', 'El hospital a sido eliminado correctamente', 'success');
@@ -59,7 +58,7 @@ export class HospitalService {
 
   crearHospital( nombre: string ) {
     let url = URL_SERVICIOS + '/hospital';
-    url += '?token=' + this._usuarioService.token;
+    url += '?token=' + this.token;
 
     const hospital = new Hospital(nombre);
 
@@ -79,7 +78,7 @@ export class HospitalService {
 
   actualizarHospital( hospital: Hospital ) {
     let url = URL_SERVICIOS + '/hospital/' + hospital._id;
-    url += '?token=' + this._usuarioService.token;
+    url += '?token=' + this.token;
 
     return this.http.put( url, hospital)
     .pipe(map((res: any) => {
