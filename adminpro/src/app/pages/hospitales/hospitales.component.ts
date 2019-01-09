@@ -61,11 +61,15 @@ export class HospitalesComponent implements OnInit {
       title: 'Agregar Hospital',
       text: 'Escriba el nombre del hospital ',
       content: 'input',
+      icon: 'info',
       buttons: true,
       dangerMode: false,
     })
     .then( crear => {
-      if( crear === null ){
+
+      // if (!crea || crear.length === 0 )
+
+      if ( crear === null ) {
         return;
       } else if ( crear.length === 0 ) {
         swal( 'Agregar Hospital', 'Debe escribir el nombre del hospital', 'error' );

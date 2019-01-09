@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { Usuario } from '../../models/usuario.model';
 
 import { filter, map } from 'rxjs/operators';
+import { UsuarioService } from '../usuario/usuario.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,8 @@ export class HospitalService {
   token: string = '';
 
   constructor(
-    public http: HttpClient
+    public http: HttpClient,
+    public _usuarioService: UsuarioService
   ) {
     this.cargarStorage();
   }
@@ -47,7 +49,7 @@ export class HospitalService {
   }
 
   borrarHospital( id: string ) {
-    const url = URL_SERVICIOS + '/hospital/' + id + '?token=' + this.token;
+    const url = URL_SERVICIOS + '/hospital/' + id + '?token=' + this._usuarioService.token;
     return this.http.delete(url)
     .pipe(map (resp => {
       swal('Hospital borrado', 'El hospital a sido eliminado correctamente', 'success');
@@ -57,7 +59,7 @@ export class HospitalService {
 
   crearHospital( nombre: string ) {
     let url = URL_SERVICIOS + '/hospital';
-    url += '?token=' + this.token;
+    url += '?token=' + this._usuarioService.token;
 
     const hospital = new Hospital(nombre);
 
@@ -77,7 +79,7 @@ export class HospitalService {
 
   actualizarHospital( hospital: Hospital ) {
     let url = URL_SERVICIOS + '/hospital/' + hospital._id;
-    url += '?token=' + this.token;
+    url += '?token=' + this._usuarioService.token;
 
     return this.http.put( url, hospital)
     .pipe(map((res: any) => {
