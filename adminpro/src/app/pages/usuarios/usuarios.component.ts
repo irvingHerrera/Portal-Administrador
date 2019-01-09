@@ -97,7 +97,6 @@ export class UsuariosComponent implements OnInit {
       if ( borrar ) {
           this._usuarioService.borrarUsuario( usuario._id )
           .subscribe( resp => {
-            console.log(resp);
             this.cargarUsuario();
           });
       }
@@ -108,6 +107,7 @@ export class UsuariosComponent implements OnInit {
   guardarUsuario( usuario: Usuario) {
     this._usuarioService.actualizarUsuario(usuario)
     .subscribe();
+    this.cargarUsuario();
   }
 
 }

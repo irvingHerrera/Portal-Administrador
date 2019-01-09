@@ -21,6 +21,23 @@ export class HospitalesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.cargarHospitales();
+
+    this._modalUploadService.notificacion
+    .subscribe( resp => this.cargarHospitales() );
+  }
+
+  cargarHospitales() {
+
+    this.cargando = true;
+
+    this._hospitalService.cargarHospitales(this.desde)
+    .subscribe( (resp: any) => {
+      console.log(resp, 'respuesta hospital');
+      this.totalRegistro = resp.total;
+      this.hospitales = resp.hospitales;
+      this.cargando = false;
+    });
   }
 
   buscarHospital( busqueda: string) {
@@ -28,15 +45,34 @@ export class HospitalesComponent implements OnInit {
   }
 
   mostrarModal( id: string) {
-
+    console.log('hola');
+    this._modalUploadService.mostrarModal( 'hospitales', id );
   }
 
   guardarHospital( hospital: Hospital ) {
-
+    this._hospitalService.actualizarHospital(hospital)
+    .subscribe();
+    this.cargarHospitales();
   }
 
   borrarHospital( hospital: Hospital ) {
-    
+
+    swal({
+      title: '¿Esta seguro?',
+      text: 'Esta a punto de borrar a ' + hospital.nombre,
+      icon: 'warning',
+      buttons: true,
+      dangerMode: true,
+    })
+    .then( borrar => {
+      if ( borrar ) {
+          this._hospitalService.borrarHospital( hospital._id )
+          .subscribe( resp => {
+            this.cargarHospitales();
+          });
+      }
+    });
+
   }
 
   cambiarDesde( valor: number) {
@@ -51,7 +87,7 @@ export class HospitalesComponent implements OnInit {
     }
 
     this.desde += valor;
-    //this.cargarUsuario();
+    this.cargarHospitales();
 
   }
 

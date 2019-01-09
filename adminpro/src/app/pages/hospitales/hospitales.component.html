@@ -22,12 +22,12 @@
     </div>
 </div>
 
-<div class="row animated fadeIn" *ngIf="cargando">
+<div class="row animated fadeIn" *ngIf="!cargando">
     <div class="col-12">
         <div class="card">
             <div class="card-body">
 
-                <h3 class="card-title display-inline">Usuarios registrados ( <small>{{ totalRegistro }}</small> )</h3>
+                <h3 class="card-title display-inline">Hospitales registrados ( <small>{{ totalRegistro }}</small> )</h3>
 
                 <button class="btn btn-facebook pull-right b-r">
                     <i class="fa fa-plus"></i> Crear Hospital
@@ -44,7 +44,7 @@
                     <tbody>
                         <tr *ngFor="let hospital of hospitales">
                             <td class="w70">
-                                <img (click)="mostrarModal( hospital._id )" [src]="hospital.img | imagen" class="img-50 img-circle pointer">
+                                <img (click)="mostrarModal( hospital._id )" [src]="hospital.img | imagen: 'hospital'" class="img-50 img-circle pointer">
                             </td>
                             <td>
                                 <input [(ngModel)]="hospital.nombre" type="text" name="nombre" class="form-control">
