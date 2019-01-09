@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { URL_SERVICIOS } from '../../config/config';
 import { filter, map } from 'rxjs/operators';
+import { Medico } from 'src/app/models/medico.model';
 
 @Injectable({
   providedIn: 'root'
@@ -45,5 +46,14 @@ export class MedicoService {
     }));
   }
 
+  guardarMedico( medico: Medico ) {
+
+    const url = URL_SERVICIOS + '/medico/' + '?token=' + this.token;
+
+    return this.http.post( url, medico )
+    .pipe(map ( (resp: any) => {
+      return resp.medico;
+    }));
+  }
 
 }
