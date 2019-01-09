@@ -3,12 +3,17 @@ import { Hospital } from 'src/app/models/hospital.model';
 import { URL_SERVICIOS } from 'src/app/config/config';
 import { HttpClient } from '@angular/common/http';
 
+import { Usuario } from '../../models/usuario.model';
+
 import { filter, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HospitalService {
+
+  usuario: Usuario;
+  token: string = '';
 
   constructor(
     public http: HttpClient
@@ -48,11 +53,23 @@ export class HospitalService {
   }
 
   crearHospital( nombre: string ) {
+    let url = URL_SERVICIOS + '/hospital';
+    url += '?token=' + this.token;
 
+    const hospital = new Hospital(nombre);
+
+    return this.http.post(url, hospital)
+    .pipe(map((res: any) => {
+      swal('Hospital Creado', hospital.nombre, 'success');
+      return res.hospital;
+    }));
   }
 
   buscarHospital( termino: string ) {
-    
+    const url = URL_SERVICIOS + '/busqueda/coleccion/hospitales/' + termino;
+
+    return this.http.get( url )
+    .pipe( map( (resp: any) => resp.hospital ));
   }
 
   actualizarHospital( hospital: Hospital ) {

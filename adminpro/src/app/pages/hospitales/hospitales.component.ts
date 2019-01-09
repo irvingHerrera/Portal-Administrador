@@ -3,6 +3,8 @@ import { ModalUploadService } from 'src/app/components/modal-upload/modal-upload
 import { HospitalService } from '../../services/hospital/hospital.service';
 import { Hospital } from '../../models/hospital.model';
 
+declare var swal: any;
+
 @Component({
   selector: 'app-hospitales',
   templateUrl: './hospitales.component.html',
@@ -33,7 +35,6 @@ export class HospitalesComponent implements OnInit {
 
     this._hospitalService.cargarHospitales(this.desde)
     .subscribe( (resp: any) => {
-      console.log(resp, 'respuesta hospital');
       this.totalRegistro = resp.total;
       this.hospitales = resp.hospitales;
       this.cargando = false;
@@ -41,11 +42,43 @@ export class HospitalesComponent implements OnInit {
   }
 
   buscarHospital( busqueda: string) {
-    console.log(busqueda);
+    if ( busqueda.length <= 0 ) {
+      this.cargarHospitales();
+      return;
+    }
+
+    this.cargando = true;
+
+    this._hospitalService.buscarHospital( busqueda )
+    .subscribe( (hospital: Hospital[]) => {
+        this.hospitales = hospital;
+        this.cargando = false;
+    });
+  }
+
+  agregarHospital() {
+    swal({
+      title: 'Agregar Hospital',
+      text: 'Escriba el nombre del hospital ',
+      content: 'input',
+      buttons: true,
+      dangerMode: false,
+    })
+    .then( crear => {
+      if( crear === null ){
+        return;
+      } else if ( crear.length === 0 ) {
+        swal( 'Agregar Hospital', 'Debe escribir el nombre del hospital', 'error' );
+      } else if ( crear.length > 0 ) {
+        this._hospitalService.crearHospital(crear)
+        .subscribe( (resp: any) => {
+          this.cargarHospitales();
+        });
+      }
+    });
   }
 
   mostrarModal( id: string) {
-    console.log('hola');
     this._modalUploadService.mostrarModal( 'hospitales', id );
   }
 
