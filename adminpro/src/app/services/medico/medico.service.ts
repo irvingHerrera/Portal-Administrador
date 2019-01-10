@@ -56,12 +56,26 @@ export class MedicoService {
 
   guardarMedico( medico: Medico ) {
 
-    const url = URL_SERVICIOS + '/medico/' + '?token=' + this.token;
+    let url = URL_SERVICIOS + '/medico/';
 
-    return this.http.post( url, medico )
-    .pipe(map ( (resp: any) => {
-      return resp.medico;
-    }));
+    if ( medico._id ) {
+
+      url += '/' + medico._id;
+      url += '?token=' + this.token;
+      console.log('kedico', url);
+      return this.http.put( url, medico )
+      .pipe(map ( (resp: any) => {
+        return resp.medico;
+      }));
+
+    } else {
+      // crear medico
+      url += '?token=' + this.token;
+      return this.http.post( url, medico )
+      .pipe(map ( (resp: any) => {
+        return resp.medico;
+      }));
+    }
   }
 
 }

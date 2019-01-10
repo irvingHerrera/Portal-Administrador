@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Medico } from '../../models/medico.model';
 import { MedicoService } from '../../services/medico/medico.service';
 
+declare var swal: any;
+
 @Component({
   selector: 'app-medicos',
   templateUrl: './medicos.component.html',
