@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row animated fadeIn">
     <div class="col-md-6">
         <div class="card card-body">
             <h3 class="box-title m-b-0">Médico: Nombre medico</h3>
@@ -41,7 +41,7 @@
         <div class="card card-body">
             <h4 class="box-title m-b-0">Fotografía</h4>
 
-            <img [src]="medico.img | imagen: 'medico'" class="rounded img-thumbnail">
+            <img (click)="cambiarFoto()" [src]="medico.img | imagen: 'medico'" class="rounded img-thumbnail pointer">
         </div>
     </div>
 
