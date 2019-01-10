@@ -16,11 +16,11 @@ import { BusquedaComponent } from './busqueda/busqueda.component';
 
 
 const pagesRoutes: Routes = [
-    {
+    /*{
         path: '',
         component: PagesComponent,
         canActivate: [LoginGuardGuard],
-        children: [
+        children: [*/
             {path: 'dashboard', component: DashboardComponent, data: { titulo: 'Tablero' } },
             {path: 'progress', component: ProgressComponent, data: { titulo: 'Barra de progreso' } },
             {path: 'grafica1', component: Graficas1Component, data: { titulo: 'Gráfica' } },
@@ -42,8 +42,8 @@ const pagesRoutes: Routes = [
             {path: 'medico/:id', component: MedicoComponent,  data: { titulo: 'Actualizar medico' }},
             {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
 
-        ]
-    }
+//        ]
+  //  }
 ];
 
 export const PAGES_ROUTES = RouterModule.forChild( pagesRoutes );
