@@ -4,7 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { URL_SERVICIOS } from '../../config/config';
 
 
-import { filter, map } from 'rxjs/operators';
+import { filter, map, catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs/internal/observable/throwError';
 import { Router } from '@angular/router';
 import swal from 'sweetalert';
 import { SubirArchivoService } from '../subir-archivo/subir-archivo.service';
@@ -96,6 +97,10 @@ export class UsuarioService {
       this.guardarStorage(resp.usuario._id, resp.token, resp.usuario, resp.menu);
 
       return true;
+    }),
+    catchError (err => {
+        swal('Error en el login', err.error.mensaje, 'error');
+        return throwError(err);
     }));
   }
 
@@ -105,7 +110,11 @@ export class UsuarioService {
     .pipe(map((res: any) => {
       swal('Usuario Creado', usuario.email, 'success');
       return res.usuario;
-    }));
+    }),
+    catchError (err => {
+      swal(err.error.mensaje, err.error.errors.message, 'error');
+      return throwError(err);
+  }));
   }
 
   actualizarUsuario( usuario: Usuario ) {
@@ -121,7 +130,11 @@ export class UsuarioService {
       }
       swal( 'Usuario actualizado', usuario.nombre, 'success' );
       return true;
-    }));
+    }),
+    catchError (err => {
+      swal(err.error.mensaje, err.error.errors.message, 'error');
+      return throwError(err);
+  }));
   }
 
   cambiarImagen ( archivo: File, id: string ) {
