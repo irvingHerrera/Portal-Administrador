@@ -106,7 +106,6 @@ export class UsuarioService {
 
     return this.http.post(url, usuario)
     .pipe(map ( (resp: any) => {
-      console.log('resp', resp);
       /*localStorage.setItem('id', resp.usuario._id);
       localStorage.setItem('token', resp.token);
       localStorage.setItem('usuario', JSON.stringify(resp.usuario));*/
