@@ -10,10 +10,25 @@
                 </div>
                 <div class="modal-body" align="center">
 
-                    <img *ngIf="!imagenTemp" [src]="xxx | imagen" class="w150">
+
+                    <img *ngIf="!imagenTemp && !mostrarCamara" [src]="xxx | imagen" class="w150">
                     <img *ngIf="imagenTemp" [src]="imagenTemp" class="w150">
+
+                    <div *ngIf="!mostrarCamara">
+                        <input (change)="seleccionImagen( $event.target.files[0] )" type="file">
+                        <button class="btn btn-primary" (click)="inicializarCamara()">Camara</button>
+                    </div>
+
                     <br>
-                    <input (change)="seleccionImagen( $event.target.files[0] )" type="file">
+
+                    <div *ngIf="mostrarCamara">
+                        <video *ngIf="!mostrarFoto" #video id="video" class="w100-pror" autoplay></video>
+                        <!-- <canvas #canvas id="canvas" [ngClass]="{'w70-pror': mostrarFoto, 'w0-pror': !mostrarFoto}"></canvas> -->
+                        <canvas style="display: none" #canvas id="canvas" class="w70-pror"></canvas>
+                        <br>
+                        <button *ngIf="!mostrarFoto" id="snap" (click)="capturar()" class="btn btn-success m-r-10">Tomar foto</button>
+                        <button *ngIf="mostrarFoto" class="btn btn-primary" (click)="inicializarCamara()">Camara</button>
+                    </div>
 
                 </div>
                 <div class="modal-footer">

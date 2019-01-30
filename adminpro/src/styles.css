@@ -10,6 +10,26 @@
     width: 150px;
 }
 
+.w0-pror {
+    width: 0%;
+}
+
+.w70-pror {
+    width: 70%;
+}
+
+.w100-pror {
+    width: 100%;
+}
+
+.w200-pror {
+    width: 200%;
+}
+
+.w300-pror {
+    width: 300%;
+}
+
 .w70 {
     width: 70px;
 }
